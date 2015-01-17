@@ -1,17 +1,21 @@
 var onFinished = require('on-finished');
 
 // sets up lyticsServer listening on 5151
-var lyticsServer = require('./server/server');
+// var lyticsServer = require('./server/server');
 
 // set up  socket from host app to 5151
-var socketClient = require('./host/socket');
+// var socketClient = require('./host/socket');
+
+
 
 module.exports = function(options) {
 
 
   return function (req, res, next) {
-    req._startAt = process.hrtime();
-    req._startTime = new Date;
+    // namespacing time properties
+    req.lyticsStartAt = process.hrtime();
+    req.lyticsStartTime = Date.now();
+    
     req._remoteAddress = getIp(req);
 
     onFinished(res, logRequest);
@@ -21,8 +25,8 @@ module.exports = function(options) {
       var requestData = {
         url: req.url,
         method: req.method,
-        requestTime: req._startTime,
-        duration: getElapsedInMs(req._startAt),
+        requestTime: req.lyticsStartTime,
+        duration: getElapsedInMs(req.lyticsStartAt),
         ip: "" + getIp(req),
         body: req.body,
         query: req.query
