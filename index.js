@@ -14,6 +14,9 @@ module.exports = function(options) {
     req._startTime = new Date;
     req._remoteAddress = getIp(req);
 
+    onFinished(res, logRequest);
+    next();
+
     function logRequest() {
       var requestData = {
         url: req.url,
@@ -27,9 +30,6 @@ module.exports = function(options) {
 
       socketClient.emit('request:log', requestData);
     }
-
-    onFinished(res, logRequest);
-    next();
   }
 
   function getElapsedInMs(hrTime) {
