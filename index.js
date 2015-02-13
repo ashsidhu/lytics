@@ -28,7 +28,7 @@ module.exports = function(options) {
         requestTime: req.lyticsStartTime,
         duration: getElapsedInMs(req.lyticsStartAt),
         ip: "" + getIp(req),
-        body: req.body,
+        body: req.body.length,
         query: req.query
       };
 

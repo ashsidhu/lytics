@@ -8,7 +8,7 @@ var RequestSchema = new mongoose.Schema({
   requestTime: Date,
   duration: Number,
   ip: String,
-  body: String, //if this does not work, then try stringifying 
+  body: Number, //if this does not work, then try stringifying 
   query: String
 });
 
